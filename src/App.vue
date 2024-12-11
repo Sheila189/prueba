@@ -16,6 +16,21 @@
         </div>
       </section>
 
+      <!-- Modal for "More Info" -->
+      <div v-if="selectedProblem" class="modal">
+        <div class="modal-content">
+          <h3>{{ selectedProblem.title }}</h3>
+          <p><strong>Categoría:</strong> {{ selectedProblem.category }}</p>
+          <p><strong>Descripción:</strong> {{ selectedProblem.description }}</p>
+          <p><strong>Dirección:</strong> {{ selectedProblem.address }}</p>
+          <div>
+            <button @click="editProblem">Editar</button>
+            <button @click="deleteProblem">Eliminar</button>
+            <button @click="cancelDetails">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
       <div v-if="showForm" class="modal">
         <h3>Publicar problema</h3>
         <form @submit.prevent="publishProblem">
@@ -27,19 +42,9 @@
           <button type="button" @click="cancelForm">Cancelar</button>
         </form>
       </div>
-
-      <div v-if="selectedProblem" class="problem-details">
-        <h3>{{ selectedProblem.title }}</h3>
-        <p><strong>Categoría:</strong> {{ selectedProblem.category }}</p>
-        <p><strong>Descripción:</strong> {{ selectedProblem.description }}</p>
-        <p><strong>Dirección:</strong> {{ selectedProblem.address }}</p>
-        <div>
-          <button @click="editProblem">Editar</button>
-          <button @click="deleteProblem">Cancelar</button>
-        </div>
-      </div>
     </main>
 
+    <!-- Navbar at the bottom -->
     <footer>
       <nav>
         <button>Inicio</button>
@@ -94,6 +99,9 @@ export default {
     cancelForm() {
       this.showForm = false;
     },
+    cancelDetails() {
+      this.selectedProblem = null;  // Cerrar el modal de "Más información"
+    },
     editProblem() {
       alert("Editar problema - funcionalidad pendiente");
     },
@@ -112,6 +120,9 @@ export default {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Para asegurarse de que todo el contenido ocupe el 100% de la altura de la pantalla */
 }
 
 header {
@@ -134,6 +145,7 @@ header {
   display: flex;
   gap: 1rem;
   padding: 1rem;
+  flex: 1; /* Para que ocupe el espacio restante de la pantalla */
 }
 
 .problem-card {
@@ -154,6 +166,13 @@ header {
   align-items: center;
 }
 
+.modal-content {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 400px;
+}
+
 .problem-details {
   padding: 1rem;
   border: 1px solid #ddd;
@@ -165,5 +184,9 @@ footer {
   padding: 1rem;
   display: flex;
   justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>
