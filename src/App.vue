@@ -49,7 +49,7 @@
       <nav>
         <button>Inicio</button>
         <button>Historial</button>
-        <button>Notificaciones</button>
+        <button>Servicios</button>
         <button>Perfil</button>
       </nav>
     </footer>
